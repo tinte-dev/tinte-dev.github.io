@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>tinte 🎨 - Installation & Environment Setup</title>
+  <!-- Google Fonts: Plus Jakarta Sans & Fira Code -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      /* Theme Presets */
+      --pastel-primary: #B4A7D6;
+      --pastel-primary-rgb: 180, 167, 214;
+      --pastel-secondary: #8EC5FC;
+      --pastel-success: #93C47D;
+      --pastel-error: #E06666;
+      --pastel-warning: #F1C40F;
+      --pastel-info: #5DADE2;
+      --pastel-muted: #888888;
+      --pastel-bg: #0B0E14;
+      --pastel-term-bg: #121620;
+
+      --ocean-primary: #6FA8DC;
+      --ocean-primary-rgb: 111, 168, 220;
+      --ocean-secondary: #76D7C4;
+      --ocean-success: #2ECC71;
+      --ocean-error: #E74C3C;
+      --ocean-warning: #F4D03F;
+      --ocean-info: #3498DB;
+      --ocean-muted: #7F8C8D;
+      --ocean-bg: #090F16;
+      --ocean-term-bg: #0E1622;
+
+      --neon-primary: #FF6FF2;
+      --neon-primary-rgb: 255, 111, 242;
+      --neon-secondary: #00FFFF;
+      --neon-success: #39FF14;
+      --neon-error: #FF073A;
+      --neon-warning: #FFFF00;
+      --neon-info: #00E5FF;
+      --neon-muted: #888888;
+      --neon-bg: #06020A;
+      --neon-term-bg: #0E0414;
+
+      --mono-primary: #CCCCCC;
+      --mono-primary-rgb: 204, 204, 204;
+      --mono-secondary: #FFFFFF;
+      --mono-success: #AAAAAA;
+      --mono-error: #FFFFFF;
+      --mono-warning: #BBBBBB;
+      --mono-info: #888888;
+      --mono-muted: #666666;
+      --mono-bg: #0C0C0C;
+      --mono-term-bg: #151515;
+
+      /* Active page-wide CSS Variables */
+      --accent: var(--pastel-primary);
+      --accent-rgb: var(--pastel-primary-rgb);
+      --accent-secondary: var(--pastel-secondary);
+      --accent-success: var(--pastel-success);
+      --accent-error: var(--pastel-error);
+      --accent-warning: var(--pastel-warning);
+      --accent-muted: var(--pastel-muted);
+      
+      --body-bg: var(--pastel-bg);
+      --card-bg: rgba(22, 28, 45, 0.6);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --text-main: #E2E8F0;
+      --text-muted: #94A3B8;
+      --text-heading: #FFFFFF;
+      --code-bg: #161D2B;
+    }
+
+    body.light-mode {
+      --body-bg: #F8FAFC;
+      --card-bg: rgba(255, 255, 255, 0.8);
+      --card-border: rgba(0, 0, 0, 0.08);
+      --text-main: #334155;
+      --text-muted: #64748B;
+      --text-heading: #0F172A;
+      --code-bg: #F1F5F9;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
+      background-color: var(--body-bg);
+      color: var(--text-main);
+      overflow-x: hidden;
+      line-height: 1.6;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+    }
+
+    /* Header Nav */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 72px;
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      background: rgba(var(--accent-rgb), 0.03);
+      border-bottom: 1px solid var(--card-border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 40px;
+      z-index: 100;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+    .logo span {
+      font-size: 1.8rem;
+    }
+
+    .logo h1 {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: var(--text-heading);
+      letter-spacing: -0.5px;
+    }
+
+    .header-nav {
+      display: flex;
+      gap: 24px;
+      margin-left: 32px;
+      margin-right: auto;
+    }
+
+    .header-nav-link {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 700;
+      transition: color 0.2s ease;
+      letter-spacing: -0.2px;
+    }
+
+    .header-nav-link:hover, .header-nav-link.active {
+      color: var(--accent);
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .lang-switcher {
+      display: flex;
+      background: rgba(0,0,0,0.2);
+      border: 1px solid var(--card-border);
+      padding: 3px;
+      border-radius: 20px;
+    }
+
+    body.light-mode .lang-switcher {
+      background: rgba(0,0,0,0.05);
+    }
+
+    .lang-btn {
+      padding: 6px 14px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      border: none;
+      background: transparent;
+      color: var(--text-muted);
+      border-radius: 18px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .lang-btn.active {
+      background: var(--accent);
+      color: #000000;
+      box-shadow: 0 2px 8px rgba(var(--accent-rgb), 0.3);
+    }
+
+    .icon-btn {
+      background: transparent;
+      border: 1px solid var(--card-border);
+      color: var(--text-main);
+      padding: 8px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+    }
+
+    .icon-btn:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    /* Page Layout */
+    .install-container {
+      flex: 1;
+      overflow-y: auto;
+      padding: 120px 24px 60px 24px;
+    }
+
+    .docs-content {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .docs-section {
+      margin-bottom: 60px;
+    }
+
+    .docs-section h2 {
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--text-heading);
+      margin-bottom: 16px;
+      letter-spacing: -1px;
+    }
+
+    .docs-section h3 {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--text-heading);
+      margin-top: 36px;
+      margin-bottom: 12px;
+    }
+
+    .docs-section p {
+      font-size: 0.98rem;
+      color: var(--text-main);
+      margin-bottom: 20px;
+    }
+
+    /* Programming Language Switcher */
+    .code-tabs-header {
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .code-tab-toggle {
+      padding: 6px 14px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      border: 1px solid var(--card-border);
+      background: var(--card-bg);
+      color: var(--text-muted);
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .code-tab-toggle.active {
+      background: var(--accent);
+      color: #000000;
+      border-color: var(--accent);
+    }
+
+    pre {
+      background: var(--code-bg);
+      border: 1px solid var(--card-border);
+      padding: 20px;
+      border-radius: 12px;
+      overflow-x: auto;
+      margin-bottom: 24px;
+      position: relative;
+    }
+
+    code {
+      font-family: 'Fira Code', monospace;
+      font-size: 0.85rem;
+      color: #E2E8F0;
+    }
+
+    .btn-copy {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      padding: 6px 14px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid var(--card-border);
+      color: var(--text-main);
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .btn-copy:hover {
+      background: rgba(255,255,255,0.15);
+      border-color: var(--accent);
+    }
+
+    .lang-go-block, .lang-py-block {
+      display: none;
+    }
+
+    body.lang-go .lang-go-block {
+      display: block;
+    }
+
+    body.lang-py .lang-py-block {
+      display: block;
+    }
+
+    /* Environment Checklist Styling */
+    .checklist {
+      list-style: none;
+      margin-top: 16px;
+      margin-bottom: 24px;
+    }
+
+    .checklist-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+      font-size: 0.95rem;
+    }
+
+    .checklist-icon {
+      color: var(--accent);
+      font-weight: 800;
+    }
+
+    /* Alert callout */
+    .alert-callout {
+      padding: 16px 20px;
+      background: rgba(var(--accent-rgb), 0.05);
+      border-left: 4px solid var(--accent);
+      border-radius: 6px;
+      margin-bottom: 24px;
+    }
+
+    .alert-callout h4 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text-heading);
+      margin-bottom: 6px;
+    }
+
+    .alert-callout p {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 0;
+    }
+
+  </style>
+</head>
+<body class="lang-py theme-pastel">
+
+  <div class="glow-overlay" style="top: 0; left: 50%;"></div>
+
+  <!-- Header -->
+  <header>
+    <a href="index.html" class="logo">
+      <svg class="logo-3d" width="32" height="32" viewBox="0 0 32 32" fill="none" style="filter: drop-shadow(0px 4px 8px rgba(var(--accent-rgb), 0.35)); transition: filter 0.3s ease;">
+        <defs>
+          <linearGradient id="logoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="var(--accent)" />
+            <stop offset="100%" stop-color="var(--accent-secondary)" />
+          </linearGradient>
+        </defs>
+        <path d="M16 2C16 2 6 12 6 20C6 25.5228 10.4772 30 16 30C21.5228 30 26 25.5228 26 20C26 12 16 2Z" fill="url(#logoGrad)" />
+        <path d="M16 6C16 6 9 13 9 19C9 22.866 12.134 26 16 26C19.866 26 23 22.866 23 19C23 13 16 6Z" fill="rgba(255,255,255,0.25)" />
+      </svg>
+      <h1>tinte</h1>
+    </a>
+    <nav class="header-nav">
+      <a href="docs.html" class="header-nav-link" data-i18n="nav_docs">Docs</a>
+      <a href="installation.html" class="header-nav-link active" data-i18n="nav_install">Installation</a>
+    </nav>
+    <div class="nav-actions">
+      <!-- Programming Language Selector -->
+      <div class="code-tabs-header" style="margin-bottom:0;">
+        <button class="code-tab-toggle active" id="tab-py" onclick="setLanguage('py')">Python</button>
+        <button class="code-tab-toggle" id="tab-go" onclick="setLanguage('go')">Go</button>
+      </div>
+
+      <!-- Language Switcher -->
+      <div class="lang-switcher">
+        <button class="lang-btn active" onclick="changeLanguage('en', this)">EN</button>
+        <button class="lang-btn" onclick="changeLanguage('ko', this)">KO</button>
+      </div>
+
+      <!-- Mode Toggle -->
+      <button class="icon-btn" onclick="toggleLightMode()" title="Toggle Dark/Light Mode">
+        <svg style="width:18px;height:18px;" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m0-12.728l.707.707m12.728 12.728l.707-.707M12 8a4 4 0 100 8 4 4 0 000-8z"></path></svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- Page content -->
+  <div class="install-container">
+    <div class="docs-content">
+      
+      <!-- SECTION 1: GETTING STARTED -->
+      <section class="docs-section">
+        <h2 data-i18n="install_title">Getting Started & Installation</h2>
+        <p data-i18n="install_desc">Add tinte to your development ecosystem. Verify dependencies and copy-paste standard quickstart boilerplates.</p>
+
+        <!-- Python Guide -->
+        <div class="lang-py-block">
+          <h3 data-i18n="py_install_title">1. Install Package</h3>
+          <pre><code>pip install tinte<button class="btn-copy" onclick="copyText('pip install tinte')">Copy</button></code></pre>
+          
+          <h3 data-i18n="py_boilerplate_title">2. Basic Script Template</h3>
+          <pre><code>import tinte
+import sys
+
+try:
+    tinte.intro("Workspace Setup")
+    
+    username = tinte.text(
+        message="What is your username?",
+        placeholder="anonymous",
+        validate=lambda v: "Required" if not v.strip() else None
+    )
+    
+    tinte.outro(f"Welcome, {username}! 🚀")
+except KeyboardInterrupt:
+    tinte.cancel("Wizard aborted.")
+    sys.exit(0)<button class="btn-copy" onclick="copyText('import tinte\nimport sys\n\ntry:\n    tinte.intro(\'Workspace Setup\')\n    username = tinte.text(\n        message=\'What is your username?\',\n        placeholder=\'anonymous\',\n        validate=lambda v: \'Required\' if not v.strip() else None\n    )\n    tinte.outro(f\'Welcome, {username}! 🚀\')\nexcept KeyboardInterrupt:\n    tinte.cancel(\'Wizard aborted.\')\n    sys.exit(0)')">Copy Code</button></code></pre>
+        </div>
+
+        <!-- Go Guide -->
+        <div class="lang-go-block">
+          <h3 data-i18n="go_install_title">1. Add Module</h3>
+          <pre><code>go get github.com/tinte-dev/tinte-go<button class="btn-copy" onclick="copyText('go get github.com/tinte-dev/tinte-go')">Copy</button></code></pre>
+
+          <h3 data-i18n="go_boilerplate_title">2. main.go Template</h3>
+          <pre><code>package main
+
+import (
+	"fmt"
+	"github.com/tinte-dev/tinte-go"
+)
+
+func main() {
+	tinte.Intro("Go Project Setup")
+
+	name, err := tinte.Text(tinte.TextOptions{
+		Message:     "Project name?",
+		Placeholder: "my-app",
+		Validate: func(s string) string {
+			if len(s) == 0 {
+				return "Required"
+			}
+			return ""
+		},
+	})
+	if err == tinte.ErrCancelled {
+		tinte.Cancel("Setup aborted.")
+		return
+	}
+
+	tinte.Outro(fmt.Sprintf("Scaffold completed for %s!", name))
+}<button class="btn-copy" onclick="copyText('package main\n\nimport (\n\t\"fmt\"\n\t\"github.com/tinte-dev/tinte-go\"\n)\n\nfunc main() {\n\ttinte.Intro(\"Go Project Setup\")\n\n\tname, err := tinte.Text(tinte.TextOptions{\n\t\tMessage:     \"Project name?\",\n\t\tPlaceholder: \"my-app\",\n\t\tValidate: func(s string) {\n\t\t\tif len(s) == 0 {\n\t\t\t\treturn \"Required\"\n\t\t\t}\n\t\t\treturn \"\"\n\t\t},\n\t})\n\tif err == tinte.ErrCancelled {\n\t\ttinte.Cancel(\"Setup aborted.\")\n\t\treturn\n\t}\n\n\ttinte.Outro(fmt.Sprintf(\"Scaffold completed for %s!\", name))\n}')">Copy Code</button></code></pre>
+        </div>
+      </section>
+
+      <!-- SECTION 2: ENVIRONMENT CONFIG & TROUBLESHOOTING -->
+      <section class="docs-section">
+        <h2 data-i18n="env_title">Terminal Environment Troubleshooting</h2>
+        <p data-i18n="env_desc">Troubleshoot standard terminal issues regarding double-width character layouts, legacy consoles, and UTF-8 encoding variables.</p>
+        
+        <div class="alert-callout">
+          <h4 data-i18n="trouble_cjk_title">Double-Width CJK Alignment Issues</h4>
+          <p data-i18n="trouble_cjk_desc">Wide characters (Korean, Japanese, Chinese) occupy two standard column cells. tinte includes automatic wcwidth calculations, but ensure your terminal uses a CJK-aware font (e.g. D2Coding, NanumGothic Coding, JetBrains Mono) to prevent alignment breaks in Table layouts.</p>
+        </div>
+
+        <h3 data-i18n="trouble_win_title">Legacy Windows CMD / PowerShell ANSI support</h3>
+        <p data-i18n="trouble_win_desc">Legacy Windows consoles (cmd.exe prior to Windows 10) do not interpret ANSI escape sequences by default. tinte handles this natively in Go via console APIs. For Python, ensure colorama is initialized. (tinte imports colorama automatically to resolve this compatibility layer).</p>
+
+        <h3 data-i18n="trouble_utf8_title">Setting UTF-8 Environment Variables</h3>
+        <p data-i18n="trouble_utf8_desc">If terminal frames or symbols (│, ╭, ╰) display as garbage text, verify that your active locale is configured to UTF-8:</p>
+        
+        <pre><code># Linux / macOS
+export LANG=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
+
+# Windows (cmd.exe)
+chcp 65001</code></pre>
+      </section>
+
+    </div>
+  </div>
+
+  <script>
+    // Tab switching for programming languages (Python vs Go)
+    function setLanguage(lang) {
+      document.body.classList.remove('lang-py', 'lang-go');
+      document.body.classList.add('lang-' + lang);
+      
+      document.querySelectorAll('.code-tab-toggle').forEach(btn => btn.classList.remove('active'));
+      if (lang === 'py') {
+        document.getElementById('tab-py').classList.add('active');
+      } else {
+        document.getElementById('tab-go').classList.add('active');
+      }
+    }
+
+    // Translation dictionary
+    const translations = {
+      en: {
+        nav_docs: "Docs",
+        nav_install: "Installation",
+        install_title: "Getting Started & Installation",
+        install_desc: "Add tinte to your development ecosystem. Verify dependencies and copy-paste standard quickstart boilerplates.",
+        py_install_title: "1. Install Package",
+        py_boilerplate_title: "2. Basic Script Template",
+        go_install_title: "1. Add Module",
+        go_boilerplate_title: "2. main.go Template",
+        env_title: "Terminal Environment Troubleshooting",
+        env_desc: "Troubleshoot standard terminal issues regarding double-width character layouts, legacy consoles, and UTF-8 encoding variables.",
+        trouble_cjk_title: "Double-Width CJK Alignment Issues",
+        trouble_cjk_desc: "Wide characters (Korean, Japanese, Chinese) occupy two standard column cells. tinte includes automatic wcwidth calculations, but ensure your terminal uses a CJK-aware font (e.g. D2Coding, NanumGothic Coding, JetBrains Mono) to prevent alignment breaks in Table layouts.",
+        trouble_win_title: "Legacy Windows CMD / PowerShell ANSI support",
+        trouble_win_desc: "Legacy Windows consoles (cmd.exe prior to Windows 10) do not interpret ANSI escape sequences by default. tinte handles this natively in Go via console APIs. For Python, ensure colorama is initialized. (tinte imports colorama automatically to resolve this compatibility layer).",
+        trouble_utf8_title: "Setting UTF-8 Environment Variables",
+        trouble_utf8_desc: "If terminal frames or symbols (│, ╭, ╰) display as garbage text, verify that your active locale is configured to UTF-8:"
+      },
+      ko: {
+        nav_docs: "문서 가이드",
+        nav_install: "설치 가이드",
+        install_title: "시작하기 및 패키지 설치",
+        install_desc: "tinte 패키지를 내 환경에 설치하고, 기본적인 보일러플레이트 코드를 실행해 봅니다.",
+        py_install_title: "1. 라이브러리 설치 (PyPI)",
+        py_boilerplate_title: "2. 기본 스크립트 템플릿",
+        go_install_title: "1. 모듈 추가 (go get)",
+        go_boilerplate_title: "2. main.go 템플릿 소스",
+        env_title: "터미널 인코딩 및 환경 문제 해결",
+        env_desc: "한글 자폭 밀림, 윈도우 인코딩 깨짐, 특수 기호 깨짐 문제를 해결하기 위한 환경 설정 가이드입니다.",
+        trouble_cjk_title: "동아시아 문자(한글) 정렬 밀림 현상",
+        trouble_cjk_desc: "한글 등 전각 문자는 영문 대비 2글자 폭을 차지합니다. tinte는 내부 보정 엔진을 탑재하여 표 길이를 정렬하지만, 터미널 폰트가 한글 고정폭(예: D2Coding, 나눔고딕 코딩, JetBrains Mono 등)으로 지정되어 있어야 표 외곽선 정렬이 완전히 맞물려 깨지지 않습니다.",
+        trouble_win_title: "레거시 Windows CMD / PowerShell ANSI 컬러 지원",
+        trouble_win_desc: "Windows 10 미만의 레거시 명령 프롬프트는 기본적으로 ANSI 컬러 코드를 해석하지 못합니다. Go 버전은 Windows Console API를 활용해 이 단계를 조율하며, Python 버전은 colorama 모듈을 자동 초기화하여 구동을 지원하므로 안심하고 사용하셔도 됩니다.",
+        trouble_utf8_title: "터미널 UTF-8 환경 변수 설정",
+        trouble_utf8_desc: "세로 연결선(│)이나 둥근 테두리 프레임(╭, ╰) 등의 기호가 문자가 깨져 보인다면, 터미널 환경이 UTF-8로 지정되었는지 확인해 주세요:"
+      }
+    };
+
+    let currentLanguage = 'en';
+
+    function changeLanguage(lang, el) {
+      currentLanguage = lang;
+      document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+      if (el) el.classList.add('active');
+
+      document.querySelectorAll('[data-i18n]').forEach(element => {
+        const key = element.getAttribute('data-i18n');
+        if (translations[lang][key]) {
+          element.innerHTML = translations[lang][key];
+        }
+      });
+    }
+
+    function toggleLightMode() {
+      document.body.classList.toggle('light-mode');
+    }
+
+    function copyText(text) {
+      navigator.clipboard.writeText(text).then(() => {
+        alert(currentLanguage === 'ko' ? "클립보드에 복사 완료!" : "Copied to clipboard!");
+      });
+    }
+  </script>
+</body>
+</html>

@@ -145,6 +145,26 @@
       text-decoration: none;
     }
 
+    .header-nav {
+      display: flex;
+      gap: 24px;
+      margin-left: 32px;
+      margin-right: auto;
+    }
+
+    .header-nav-link {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 700;
+      transition: color 0.2s ease;
+      letter-spacing: -0.2px;
+    }
+
+    .header-nav-link:hover {
+      color: var(--accent);
+    }
+
     .logo span {
       font-size: 1.8rem;
     }
@@ -804,7 +824,7 @@
 
   <!-- Header -->
   <header>
-    <a href="#" class="logo">
+    <a href="index.html" class="logo">
       <svg class="logo-3d" width="32" height="32" viewBox="0 0 32 32" fill="none" style="filter: drop-shadow(0px 4px 8px rgba(var(--accent-rgb), 0.35)); transition: filter 0.3s ease;">
         <defs>
           <linearGradient id="logoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -817,6 +837,10 @@
       </svg>
       <h1>tinte</h1>
     </a>
+    <nav class="header-nav">
+      <a href="docs.html" class="header-nav-link" data-i18n="nav_docs">Docs</a>
+      <a href="installation.html" class="header-nav-link" data-i18n="nav_install">Installation</a>
+    </nav>
     <div class="nav-actions">
       <!-- Language Switcher -->
       <div class="lang-switcher">
@@ -1057,94 +1081,13 @@ Input database password:
     </div>
   </section>
 
-  <!-- Installation Quickstart (Single Page Guide) -->
+  <!-- Ready to install Banner -->
   <div class="installation-section" id="install-section">
     <div class="container">
-      <div class="installation-card fade-in-scroll">
-        <h3 style="text-align:center; font-size:2.2rem; margin-bottom:20px; font-weight:800; color:var(--text-heading);" data-i18n="install_title">Quickstart Guide</h3>
-        <p style="text-align:center; color:var(--text-muted); margin-bottom:40px; font-size:1.05rem;" data-i18n="install_subtitle">Get tinte up and running in your terminal environment in less than 30 seconds.</p>
-
-        <div class="install-header-tabs">
-          <button class="install-tab-btn active" onclick="switchInstallTab('python', this)">Python 3.10+</button>
-          <button class="install-tab-btn" onclick="switchInstallTab('go', this)">Go 1.21+</button>
-        </div>
-
-        <!-- Python Guide -->
-        <div class="install-tab-content active" id="install-python">
-          <h4 style="margin-bottom:12px; font-weight:700; color:var(--text-heading);" data-i18n="install_step_title_1">1. Install package from PyPI</h4>
-          <div class="code-wrapper">
-            <button class="btn-copy" onclick="copyCode('pip install tinte')">Copy</button>
-            <pre class="code-terminal"><code>pip install tinte</code></pre>
-          </div>
-
-          <h4 style="margin-bottom:12px; font-weight:700; color:var(--text-heading);" data-i18n="install_step_title_2">2. Build an Interactive Setup Script</h4>
-          <div class="code-wrapper">
-            <button class="btn-copy" onclick="copyCode(pythonCodeSnippet)">Copy Code</button>
-            <pre class="code-terminal" style="max-height: 400px; overflow-y: auto;"><code style="color: #64B5F6;">import tinte
-import sys
-
-try:
-    # 1. Start UI frame
-    tinte.intro("Project Setup")
-
-    # 2. Prompts
-    proj_name = tinte.text(
-        message="What is the project name?",
-        placeholder="my-cool-app",
-        validate=lambda v: "Required" if not v.strip() else None
-    )
-
-    is_git = tinte.confirm("Initialize Git repository?")
-
-    # 3. Finish and Print summary
-    tinte.outro(f"Successfully configured '{proj_name}'! 🚀")
-except KeyboardInterrupt:
-    tinte.cancel("Wizard aborted.")
-    sys.exit(1)</code></pre>
-          </div>
-        </div>
-
-        <!-- Go Guide -->
-        <div class="install-tab-content" id="install-go">
-          <h4 style="margin-bottom:12px; font-weight:700; color:var(--text-heading);" data-i18n="install_step_title_1_go">1. Add module to your project</h4>
-          <div class="code-wrapper">
-            <button class="btn-copy" onclick="copyCode('go get github.com/tinte-dev/tinte-go')">Copy</button>
-            <pre class="code-terminal"><code>go get github.com/tinte-dev/tinte-go</code></pre>
-          </div>
-
-          <h4 style="margin-bottom:12px; font-weight:700; color:var(--text-heading);" data-i18n="install_step_title_2_go">2. Write your main.go</h4>
-          <div class="code-wrapper">
-            <button class="btn-copy" onclick="copyCode(goCodeSnippet)">Copy Code</button>
-            <pre class="code-terminal" style="max-height: 400px; overflow-y: auto;"><code style="color: #64B5F6;">package main
-
-import (
-	"fmt"
-	"github.com/tinte-dev/tinte"
-)
-
-func main() {
-	tinte.Intro("Go Project Setup")
-
-	name, err := tinte.Text(tinte.TextOptions{
-		Message:     "Project name?",
-		Placeholder: "my-app",
-		Validate: func(s string) string {
-			if len(s) == 0 {
-				return "Required"
-			}
-			return ""
-		},
-	})
-	if err == tinte.ErrCancelled {
-		tinte.Cancel("Setup aborted.")
-		return
-	}
-
-	tinte.Outro(fmt.Sprintf("Scaffold completed for %s!", name))
-}</code></pre>
-          </div>
-        </div>
-
+      <div class="installation-card fade-in-scroll" style="text-align: center; padding: 60px 40px; display: flex; flex-direction: column; align-items: center; background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 24px; box-shadow: 0 40px 80px rgba(0,0,0,0.3);">
+        <h3 style="font-size: 2.2rem; margin-bottom: 20px; font-weight: 800; color: var(--text-heading);" data-i18n="banner_title">Ready to build beautiful CLIs?</h3>
+        <p style="color: var(--text-muted); margin-bottom: 40px; font-size: 1.1rem; max-width: 600px;" data-i18n="banner_subtitle">Explore the installation steps, environment setups, and get running in under 30 seconds.</p>
+        <a href="installation.html" class="btn-primary" style="display: inline-flex; text-decoration: none; align-items: center; gap: 8px;" data-i18n="banner_btn">Go to Installation Guide &rarr;</a>
       </div>
     </div>
   </div>
@@ -1191,12 +1134,11 @@ func main() {
         feat_3_desc: "Go library runs entirely on Pure standard library. Python version uses only two low-level terminal modules.",
         play_title: "Visual Theme Playground",
         play_subtitle: "Click a theme preset to dynamically update the color system of the landing page.",
-        install_title: "Quickstart Guide",
-        install_subtitle: "Get tinte up and running in your terminal environment in less than 30 seconds.",
-        install_step_title_1: "1. Install package from PyPI",
-        install_step_title_2: "2. Build an Interactive Setup Script",
-        install_step_title_1_go: "1. Add module to your project",
-        install_step_title_2_go: "2. Write your main.go"
+        nav_docs: "Docs",
+        nav_install: "Installation",
+        banner_title: "Ready to build beautiful CLIs?",
+        banner_subtitle: "Explore the installation steps, environment setups, and get running in under 30 seconds.",
+        banner_btn: "Go to Installation Guide &rarr;"
       },
       ko: {
         header_cta: "설치하러 가기",
@@ -1229,12 +1171,11 @@ func main() {
         feat_3_desc: "Go 버전은 다른 패키지를 일절 내려받지 않는 순수 stdlib 환경이며, Python 역시 극소수 필수 패키지만 탑재합니다.",
         play_title: "테마 플레이그라운드",
         play_subtitle: "테마 프리셋을 클릭하면 실시간으로 사이트 전체의 대표 색상 체계와 터미널 색상이 바뀝니다.",
-        install_title: "설치 및 실행 퀵가이드",
-        install_subtitle: "단 30초 만에 tinte를 터미널 작업물에 추가하고 마법사를 생성하는 방법입니다.",
-        install_step_title_1: "1. PyPI 패키지 인스톨",
-        install_step_title_2: "2. 상호작용 설치 스크립트 작성",
-        install_step_title_1_go: "1. Go 모듈 다운로드",
-        install_step_title_2_go: "2. main.go 소스파일 생성"
+        nav_docs: "문서 가이드",
+        nav_install: "설치 가이드",
+        banner_title: "아름다운 터미널 UI를 빌드할 준비가 되셨나요?",
+        banner_subtitle: "설치 과정, 윈도우 한글 깨짐 방지 팁 등 30초 만에 tinte를 구동해 보세요.",
+        banner_btn: "설치 가이드 보기 &rarr;"
       }
     };
 
